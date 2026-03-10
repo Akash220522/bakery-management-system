@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AD Bakery</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- jsPDF for downloading bill as PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <h1>AD Bakery</h1>
+      <p>Fresh puffs, rolls, and sweets every day</p>
+    </div>
+    <nav class="nav">
+      <button class="nav-btn" data-target="section-menu">Menu</button>
+      <button class="nav-btn" data-target="section-cart">Cart &amp; Billing</button>
+      <button class="nav-btn" data-target="section-reports">Reports</button>
+      <button class="nav-btn" data-target="section-manage-menu">Manage Menu</button>
+    </nav>
+  </header>
+
+  <main class="main">
+    <!-- Menu Section -->
+    <section id="section-menu" class="section section-active">
+      <h2>Menu</h2>
+      <p class="section-subtitle">Tap an item to add it to the bill.</p>
+      <div id="menu-grid" class="menu-grid">
+        <!-- Menu cards injected by script.js -->
+      </div>
+    </section>
+
+    <!-- Cart & Billing Section -->
+    <section id="section-cart" class="section">
+      <h2>Cart &amp; Billing</h2>
+      <div class="cart-layout">
+        <div class="cart-panel">
+          <table class="cart-table">
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="cart-body">
+              <!-- Cart rows injected by script.js -->
+            </tbody>
+          </table>
+          <div class="cart-summary">
+            <div class="cart-total">
+              <span>Grand Total:</span>
+              <span id="cart-grand-total">₹0</span>
+            </div>
+            <div class="cart-actions">
+              <button id="btn-pay-now" class="primary">Pay Now (QR)</button>
+              <button id="btn-print-bill" class="secondary">Download Bill PDF</button>
+              <button id="btn-clear-cart" class="danger">Clear Cart</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="bill-panel">
+          <h3>Bill Preview</h3>
+          <div id="bill-container" class="bill-container">
+            <!-- Printable bill content injected by script.js -->
+          </div>
+        </aside>
+      </div>
+
+      <!-- QR Payment Modal/Panel -->
+      <div id="qr-overlay" class="qr-overlay hidden">
+        <div class="qr-modal">
+          <h3>Scan to Pay</h3>
+          <p>Show this QR code to the customer. After payment, click “Payment Done”.</p>
+          <div class="qr-image-wrapper">
+            <div class="qr-placeholder">
+              QR Code
+            </div>
+          </div>
+          <p class="qr-amount">Amount: <span id="qr-amount">₹0</span></p>
+          <div class="qr-actions">
+            <button id="btn-payment-done" class="primary">Payment Done</button>
+            <button id="btn-close-qr" class="secondary">Close</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="section-reports" class="section">
+      <h2>Monthly Sales Report</h2>
+      <div class="report-controls">
+        <label>
+          Month
+          <select id="report-month"></select>
+        </label>
+        <label>
+          Year
+          <select id="report-year"></select>
+        </label>
+        <button id="btn-generate-report" class="primary">Generate Report</button>
+      </div>
+      <div class="report-summary" id="report-summary">
+        <!-- Summary injected by script.js -->
+      </div>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Quantity Sold</th>
+            <th>Total Revenue (₹)</th>
+          </tr>
+        </thead>
+        <tbody id="report-body">
+          <!-- Rows injected by script.js -->
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Manage Menu Section -->
+    <section id="section-manage-menu" class="section">
+      <h2>Manage Menu</h2>
+
+      <form id="menu-form" class="menu-form">
+        <input type="hidden" id="menu-item-id" />
+        <div class="form-row">
+          <label for="menu-item-name">Item Name</label>
+          <input type="text" id="menu-item-name" required />
+        </div>
+        <div class="form-row">
+          <label for="menu-item-price">Price (₹)</label>
+          <input type="number" id="menu-item-price" required min="0" step="1" />
+        </div>
+        <div class="form-row">
+          <label for="menu-item-image">Image URL (optional)</label>
+          <input type="url" id="menu-item-image" placeholder="https://example.com/image.jpg" />
+        </div>
+        <div class="form-row checkbox-row">
+          <label>
+            <input type="checkbox" id="menu-item-available" checked />
+            Available
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="primary" id="menu-form-submit">Save Item</button>
+          <button type="button" class="secondary" id="menu-form-reset">Clear</button>
+        </div>
+      </form>
+
+      <h3>Current Menu</h3>
+      <table class="manage-menu-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price (₹)</th>
+            <th>Available</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="manage-menu-body">
+          <!-- Rows injected by script.js -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
